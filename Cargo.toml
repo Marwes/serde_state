@@ -1,11 +1,8 @@
 [workspace]
-members = [
-    "serde",
-    "serde_state",
-    "serde_derive",
-    "serde_test",
-    "test_suite",
-]
+members = ["serde_state", "serde_derive", "test_suite"]
+resolver = "2"
 
-[patch.crates-io]
-serde = { version = "1.0.0", git = "https://github.com/serde-rs/serde" }
+[workspace.dependencies]
+proc-macro2 = { version = "1.0.74", default-features = false }
+quote = { version = "1.0.35", default-features = false }
+syn = { version = "2.0.81", default-features = false }

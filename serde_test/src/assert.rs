@@ -1,3 +1,5 @@
+#![allow(unexpected_cfgs)]
+
 use serde::{Deserialize, Serialize};
 use serde_state::de::DeserializeState;
 use serde_state::ser::{SerializeState, Unseeded};
@@ -30,7 +32,6 @@ use std::fmt::Debug;
 ///     Token::StructEnd,
 /// ]);
 /// ```
-#[cfg_attr(track_caller, track_caller)]
 pub fn assert_tokens<'de, T>(value: &T, tokens: &'de [Token])
 where
     T: Serialize + Deserialize<'de> + PartialEq + Debug,
@@ -61,17 +62,16 @@ where
 ///     Token::StructEnd,
 /// ]);
 /// ```
-#[cfg_attr(track_caller, track_caller)]
 pub fn assert_ser_tokens<T>(value: &T, tokens: &[Token])
 where
-    T: Serialize,
+    T: Serialize + ?Sized,
 {
     assert_ser_seed_tokens(&Unseeded(value), &(), tokens)
 }
 
 pub fn assert_ser_seed_tokens<T, Seed>(value: &T, seed: &Seed, tokens: &[Token])
 where
-    T: SerializeState<Seed>,
+    T: SerializeState<Seed> + ?Sized,
 {
     let mut ser = Serializer::new(tokens);
     match value.serialize_state(&mut ser, seed) {
@@ -121,10 +121,9 @@ where
 /// assert_ser_tokens_error(&example, expected, error);
 /// }
 /// ```
-#[cfg_attr(track_caller, track_caller)]
 pub fn assert_ser_tokens_error<T>(value: &T, tokens: &[Token], error: &str)
 where
-    T: Serialize,
+    T: Serialize + ?Sized,
 {
     let mut ser = Serializer::new(tokens);
     match value.serialize(&mut ser) {
@@ -159,7 +158,6 @@ where
 ///     Token::StructEnd,
 /// ]);
 /// ```
-#[cfg_attr(track_caller, track_caller)]
 pub fn assert_de_tokens<'de, T>(value: &T, tokens: &'de [Token])
 where
     T: Deserialize<'de> + PartialEq + Debug,
@@ -227,7 +225,6 @@ where
 ///     "unknown field `x`, expected `a` or `b`",
 /// );
 /// ```
-#[cfg_attr(track_caller, track_caller)]
 pub fn assert_de_tokens_error<'de, T>(tokens: &'de [Token], error: &str)
 where
     T: Deserialize<'de>,
