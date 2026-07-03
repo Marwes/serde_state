@@ -6,6 +6,7 @@
 // option. This file may not be copied, modified, or distributed
 // except according to those terms.
 #![allow(deprecated)] // For try!
+#![allow(unexpected_cfgs)]
 
 //! # serde_state
 //!
@@ -127,10 +128,10 @@
 //    https://github.com/serde-rs/serde/issues/812
 #![cfg_attr(feature = "unstable", feature(never_type))]
 // Whitelisted clippy lints.
-#![cfg_attr(feature = "cargo-clippy", allow(doc_markdown))]
-#![cfg_attr(feature = "cargo-clippy", allow(linkedlist))]
-#![cfg_attr(feature = "cargo-clippy", allow(type_complexity))]
-#![cfg_attr(feature = "cargo-clippy", allow(zero_prefixed_literal))]
+#![allow(clippy::doc_markdown)]
+#![allow(clippy::linkedlist)]
+#![allow(clippy::type_complexity)]
+#![allow(clippy::zero_prefixed_literal)]
 // Blacklisted Rust lints.
 #![deny(missing_docs, unused_imports)]
 
@@ -148,6 +149,7 @@ extern crate serde;
 /// A facade around all the types we need from the `std`, `core`, `alloc`, and
 /// `collections` crates. This avoids elaborate import wrangling having to
 /// happen in every module.
+#[allow(unused_imports, dead_code)]
 mod lib {
     mod core {
         #[cfg(not(feature = "std"))]
@@ -176,9 +178,9 @@ mod lib {
     pub use std::borrow::{Cow, ToOwned};
 
     #[cfg(all(feature = "alloc", not(feature = "std")))]
-    pub use collections::string::{String, ToString};
+    pub use alloc::string::{String, ToString};
     #[cfg(feature = "std")]
-    pub use std::string::String;
+    pub use std::string::{String, ToString};
 
     #[cfg(all(feature = "alloc", not(feature = "std")))]
     pub use collections::vec::Vec;
@@ -231,6 +233,8 @@ pub mod ser;
 
 #[doc(hidden)]
 pub mod private;
+
+pub use private as __private;
 
 #[doc(hidden)]
 pub use serde::*;

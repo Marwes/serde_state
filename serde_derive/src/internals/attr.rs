@@ -2070,9 +2070,6 @@ fn collect_lifetimes(ty: &syn::Type, out: &mut BTreeSet<syn::Lifetime>) {
         | syn::Type::Infer(_)
         | syn::Type::Verbatim(_) => {}
 
-        #[cfg(test)]
-        syn::Type::__TestExhaustive(_) => unimplemented!(),
-        #[cfg(not(test))]
         _ => {}
     }
 }
