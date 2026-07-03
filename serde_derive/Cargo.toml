@@ -1,6 +1,6 @@
 [package]
 name = "serde_derive_state"
-version = "0.4.10"
+version = "0.4.11"
 authors = [
     "Erick Tryzelaar <erick.tryzelaar@gmail.com>",
     "David Tolnay <dtolnay@gmail.com>",

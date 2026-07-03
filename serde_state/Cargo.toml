@@ -1,7 +1,10 @@
 [package]
 name = "serde_state"
-version = "0.4.8"
-authors = ["Erick Tryzelaar <erick.tryzelaar@gmail.com>", "David Tolnay <dtolnay@gmail.com>"]
+version = "0.4.9"
+authors = [
+    "Erick Tryzelaar <erick.tryzelaar@gmail.com>",
+    "David Tolnay <dtolnay@gmail.com>",
+]
 license = "MIT/Apache-2.0"
 description = "Stateful serialization/deserialization for serde"
 homepage = "https://serde.rs"
@@ -10,7 +13,13 @@ documentation = "https://docs.serde.rs/serde_state/"
 keywords = ["serde", "serialization", "no_std"]
 categories = ["encoding"]
 readme = "README.md"
-include = ["Cargo.toml", "src/**/*.rs", "README.md", "LICENSE-APACHE", "LICENSE-MIT"]
+include = [
+    "Cargo.toml",
+    "src/**/*.rs",
+    "README.md",
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+]
 
 [badges]
 travis-ci = { repository = "serde-rs/serde" }
