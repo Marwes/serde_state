@@ -71,7 +71,7 @@ where
         }
 
         forward_to_deserialize_any! {
-            bool i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 char str string bytes
+            bool i8 i16 i32 i64 i128 u8 u16 u32 u64 u128 f32 f64 char str string bytes
             byte_buf unit unit_struct newtype_struct seq tuple tuple_struct map
             struct enum identifier ignored_any
         }
@@ -262,11 +262,13 @@ mod content {
         U16(u16),
         U32(u32),
         U64(u64),
+        U128(u128),
 
         I8(i8),
         I16(i16),
         I32(i32),
         I64(i64),
+        I128(i128),
 
         F32(f32),
         F64(f64),
@@ -294,10 +296,12 @@ mod content {
                 Content::U16(n) => Unexpected::Unsigned(n as u64),
                 Content::U32(n) => Unexpected::Unsigned(n as u64),
                 Content::U64(n) => Unexpected::Unsigned(n),
+                Content::U128(n) => Unexpected::Unsigned(n as u64),
                 Content::I8(n) => Unexpected::Signed(n as i64),
                 Content::I16(n) => Unexpected::Signed(n as i64),
                 Content::I32(n) => Unexpected::Signed(n as i64),
                 Content::I64(n) => Unexpected::Signed(n),
+                Content::I128(n) => Unexpected::Signed(n as i64),
                 Content::F32(f) => Unexpected::Float(f as f64),
                 Content::F64(f) => Unexpected::Float(f),
                 Content::Char(c) => Unexpected::Char(c),
@@ -1012,10 +1016,12 @@ mod content {
                 Content::U16(v) => visitor.visit_u16(v),
                 Content::U32(v) => visitor.visit_u32(v),
                 Content::U64(v) => visitor.visit_u64(v),
+                Content::U128(v) => visitor.visit_u128(v),
                 Content::I8(v) => visitor.visit_i8(v),
                 Content::I16(v) => visitor.visit_i16(v),
                 Content::I32(v) => visitor.visit_i32(v),
                 Content::I64(v) => visitor.visit_i64(v),
+                Content::I128(v) => visitor.visit_i128(v),
                 Content::F32(v) => visitor.visit_f32(v),
                 Content::F64(v) => visitor.visit_f64(v),
                 Content::Char(v) => visitor.visit_char(v),
@@ -1406,10 +1412,12 @@ mod content {
                 Content::U16(v) => visitor.visit_u16(v),
                 Content::U32(v) => visitor.visit_u32(v),
                 Content::U64(v) => visitor.visit_u64(v),
+                Content::U128(v) => visitor.visit_u128(v),
                 Content::I8(v) => visitor.visit_i8(v),
                 Content::I16(v) => visitor.visit_i16(v),
                 Content::I32(v) => visitor.visit_i32(v),
                 Content::I64(v) => visitor.visit_i64(v),
+                Content::I128(v) => visitor.visit_i128(v),
                 Content::F32(v) => visitor.visit_f32(v),
                 Content::F64(v) => visitor.visit_f64(v),
                 Content::Char(v) => visitor.visit_char(v),
